@@ -1,0 +1,93 @@
+main {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  gap: 32px;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.chat-history {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  height: 100%;
+  padding: 12px;
+  padding-bottom: 72px;
+
+  &__label {
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.8;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .empty-history {
+    color: var(--text-color-50);
+  }
+
+  .account {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+    border-top: 1px solid var(--text-color-10);
+  }
+}
+
+.empty-history,
+.chat-history__label {
+  margin: 6px;
+}
+
+ul {
+  flex: 1;
+  overflow-y: auto;
+}
+
+li {
+  list-style: none;
+}
+
+.chat-item {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 12px;
+  transition: background 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.chat-item:hover {
+  background: var(--text-color-5);
+}
+
+.chat-item.active {
+  background: var(--text-color-10);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .username {
+    font-weight: 600;
+  }
+
+  .last-message {
+    font-size: 14px;
+    color: var(--text-color-50);
+  }
+}
+
+.chat-wrapper {
+  width: 50%;
+}

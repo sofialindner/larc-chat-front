@@ -1,0 +1,44 @@
+<main class="main-container">
+  <aside class="chat-history glass-card">
+    <span class="chat-history__label">Usuários online</span>
+    @if (users().length === 0) {
+      <span class="empty-history">Nenhum usuário encontrado.</span>
+    } @else {
+      <ul>
+        @for (user of users(); track user.id) {
+          @let offline = isOffline(user);
+          <li>
+            <a class="chat-item" [class.active]="isActiveUser(user.id)" [routerLink]="[user.id]">
+              <ng-container
+                [ngTemplateOutlet]="userTmpl"
+                [ngTemplateOutletContext]="{ user, offline }"
+              ></ng-container>
+            </a>
+          </li>
+        }
+      </ul>
+    }
+
+    <div class="account">
+      <ng-container
+        [ngTemplateOutlet]="userTmpl"
+        [ngTemplateOutletContext]="{ user: currentUser(), offline: false }"
+      ></ng-container>
+    </div>
+  </aside>
+
+  <div class="chat-wrapper">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+
+<ng-template #userTmpl let-user="user" let-offline="offline">
+  <app-user-media [offline]="offline"></app-user-media>
+
+  <div class="user-info">
+    <span class="username">{{ user.username }}</span>
+    <span class="last-message">{{
+      offline ? `Última vez online às ${(user.lastTimeOnline | date: 'shortTime')}` : 'Online'
+    }}</span>
+  </div>
+</ng-template>

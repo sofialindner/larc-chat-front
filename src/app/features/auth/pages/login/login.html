@@ -1,0 +1,27 @@
+<div class="login-container">
+  <div class="login-card glass-card">
+    <div class="onboarding">
+      <h2>Bem-vindo de volta</h2>
+      <span>Entre com sua conta para acessar ao chat.</span>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onLogin()">
+      <label>
+        ID do usuário
+        <input
+          formControlName="id"
+          placeholder="Número de 4 dígitos"
+          type="text"
+          mask="0000"
+          maxlength="4"
+        />
+      </label>
+      <label>
+        Senha
+        <input formControlName="password" placeholder="Senha" maxlength="5"/>
+      </label>
+
+      <button class="btn-filled" type="submit" [disabled]="form.invalid">Entrar</button>
+    </form>
+  </div>
+</div>

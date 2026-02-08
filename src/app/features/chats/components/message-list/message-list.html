@@ -1,0 +1,31 @@
+<div class="chat-container">
+  <div class="chat-header">
+    <app-user-media [offline]="header()?.offline ?? undefined"></app-user-media>
+    <h3>{{ header()?.label }}</h3>
+  </div>
+
+  <ul class="message-list" #messageList>
+    @for (message of messages(); track message.clientId) {
+      <li class="message" [ngClass]="sentByMe(message) ? 'me' : 'user'">
+        <pre class="message__content">{{ message.content }}</pre>
+        <span class="message__time">{{ message.createdAt | date: 'shortTime' }}</span>
+      </li>
+    }
+    <div class="anchor"></div>
+  </ul>
+
+  <div class="input-wrapper glass-card">
+    <textarea
+      placeholder="Digite uma mensagem..."
+      [formControl]="messageControl"
+      (keyup.enter)="onSendMessage()"
+    ></textarea>
+    <button
+      class="btn-filled icon-btn"
+      [disabled]="messageControl.value === ''"
+      (click)="onSendMessage()"
+    >
+      <mat-icon>arrow_upward</mat-icon>
+    </button>
+  </div>
+</div>

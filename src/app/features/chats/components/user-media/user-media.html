@@ -1,0 +1,7 @@
+<div class="user-media">
+  <mat-icon>person</mat-icon>
+
+  @if (offline() !== undefined) {
+    <div class="online-indicator" [class.offline]="offline()"></div>
+  }
+</div>

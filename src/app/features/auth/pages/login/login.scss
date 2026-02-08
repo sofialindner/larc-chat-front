@@ -1,0 +1,43 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.login-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 25rem;
+  min-height: 30rem;
+  padding: 24px;
+}
+
+.onboarding {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 42px;
+
+  span {
+    font-size: 14px;
+    color: var(--text-color-50);
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 600;
+  gap: 8px;
+}
