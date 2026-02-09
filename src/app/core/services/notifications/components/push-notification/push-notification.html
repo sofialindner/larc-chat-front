@@ -1,0 +1,16 @@
+<div class="notification glass-card">
+  @if (appName()) {
+    <span class="app-name"
+      ><span style="font-weight: 600">{{ appName() }}</span> • agora</span
+    >
+  }
+  <div class="content">
+    <div class="icon-wrapper">
+      <mat-icon>{{ icon() }}</mat-icon>
+    </div>
+    <div class="text-wrapper">
+      <h4>{{ title() }}</h4>
+      <p>{{ text() }}</p>
+    </div>
+  </div>
+</div>

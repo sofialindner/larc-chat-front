@@ -63,6 +63,7 @@
 .message {
   position: relative;
   display: flex;
+  flex-direction: column;
   width: fit-content;
   height: fit-content;
   min-width: calc(35px + 2 * 12px);
@@ -81,6 +82,12 @@
     align-self: flex-end;
     background: var(--primary-color);
     border-bottom-right-radius: 6px;
+  }
+
+  &__sender {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 4px;
   }
 
   &__content {

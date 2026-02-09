@@ -13,4 +13,8 @@ export class AuthService {
   login(login: UserLogin): Observable<User> {
     return this.http.post<UserDto>(`${this.apiUrl}/login`, login).pipe(map((dto) => new User(dto)));
   }
+
+  me(): Observable<User> {
+    return this.http.get<UserDto>(`${this.apiUrl}/me`).pipe(map((dto) => new User(dto)));
+  }
 }

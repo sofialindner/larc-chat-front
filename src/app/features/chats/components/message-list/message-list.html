@@ -7,6 +7,9 @@
   <ul class="message-list" #messageList>
     @for (message of messages(); track message.clientId) {
       <li class="message" [ngClass]="sentByMe(message) ? 'me' : 'user'">
+        @if (isBroadcastChat()) {
+          <h4 class="message__sender">{{ getUsername(message.senderId)}}</h4>
+        }
         <pre class="message__content">{{ message.content }}</pre>
         <span class="message__time">{{ message.createdAt | date: 'shortTime' }}</span>
       </li>

@@ -1,1 +1,1 @@
-export * from './broadcast-chat.const';
+export * from './broadcast.const';

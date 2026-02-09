@@ -6,9 +6,9 @@ import { Message } from '../../models';
 import { ChatsFacade, UsersStore } from '../../state';
 import { map } from 'rxjs';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthStore } from 'core/auth';
-import { BROADCAST_CHAT } from '../../constants';
+import { AuthStore, DisplayUser } from 'core/auth';
 import { UserMedia } from '../user-media/user-media';
+import { BROADCAST_ID } from 'features/chats/constants';
 
 interface HeaderValue {
   icon: string;
@@ -28,11 +28,10 @@ export class MessageList {
   messageControl = new FormControl<string>('');
 
   readonly messages = computed(() => this.facade.activeChatMessages());
+  readonly isBroadcastChat = computed(() => this.facade.activeUserId() === BROADCAST_ID);
   readonly header = computed(() => {
     const activeId = this.facade.activeUserId();
     if (activeId === null) return;
-
-    if (this.facade.isBroadcast()) return { ...BROADCAST_CHAT, offline: null };
 
     const user = this.usersStore.getUser(activeId);
     return {
@@ -68,6 +67,8 @@ export class MessageList {
   }
 
   sentByMe = (message: Message) => message.senderId === this.authStore.user()?.id;
+
+  getUsername = (userId: number) => this.usersStore.getUser(userId)?.username;
 
   onSendMessage = () => {
     this.facade.sendMessage();

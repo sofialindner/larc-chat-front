@@ -1,23 +1,30 @@
 <main class="main-container">
   <aside class="chat-history glass-card">
     <span class="chat-history__label">Usuários online</span>
-    @if (users().length === 0) {
-      <span class="empty-history">Nenhum usuário encontrado.</span>
-    } @else {
-      <ul>
-        @for (user of users(); track user.id) {
-          @let offline = isOffline(user);
-          <li>
-            <a class="chat-item" [class.active]="isActiveUser(user.id)" [routerLink]="[user.id]">
+    <ul>
+      @for (user of users(); track user.id) {
+        @let offline = isOffline(user);
+        <li>
+          <a class="chat-item" [class.active]="isActiveUser(user.id)" [routerLink]="[user.id]">
+            @if (isBroadcast(user)) {
+              <div class="broadcast-icon">
+                <mat-icon>campaign</mat-icon>
+              </div>
+
+              <div class="user-info">
+                <span class="username">Todos</span>
+                <span class="last-message">Chat</span>
+              </div>
+            } @else {
               <ng-container
                 [ngTemplateOutlet]="userTmpl"
                 [ngTemplateOutletContext]="{ user, offline }"
               ></ng-container>
-            </a>
-          </li>
-        }
-      </ul>
-    }
+            }
+          </a>
+        </li>
+      }
+    </ul>
 
     <div class="account">
       <ng-container

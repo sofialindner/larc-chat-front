@@ -10,7 +10,7 @@ export class Message {
   constructor(data: MessageDto) {
     this.clientId = crypto.randomUUID();
     this.senderId = data.senderId;
-    this.receiverId = data.receiverId;
+    this.receiverId = data.receiverId || 0;
     this.content = data.content;
     this.createdAt = new Date();
   }

@@ -2,10 +2,11 @@ import { Component, effect, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthStore } from 'core/auth';
 import { ChatService } from 'features/chats/services';
+import { PushNotificationList } from "core/services";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, PushNotificationList],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

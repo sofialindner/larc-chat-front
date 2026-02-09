@@ -3,6 +3,7 @@ import { MessagesStore } from './messages.store';
 import { AuthStore } from 'core/auth';
 import { ChatService } from '../services';
 import { Message, MessageCreate } from '../models';
+import { BROADCAST_ID } from '../constants';
 
 @Injectable()
 export class ChatsFacade {
@@ -11,8 +12,6 @@ export class ChatsFacade {
 
   readonly activeUserId = this._activeUserId.asReadonly();
   readonly inputContent = this._inputContent.asReadonly();
-
-  readonly isBroadcast = computed(() => this._activeUserId() === 0);
 
   readonly messageDraft = computed(
     () =>
@@ -23,21 +22,31 @@ export class ChatsFacade {
   );
   readonly activeChatMessages = computed(() => {
     const activeId = this._activeUserId();
-    if (!activeId) return [];
+    if (activeId == null) return [];
+
     return this.messagesStore
       .messages()
-      .filter((m) => m.senderId === activeId || m.receiverId === activeId)
+      .filter((m) => {
+        if (activeId === BROADCAST_ID) {
+          return m.receiverId === BROADCAST_ID;
+        }
+
+        return (
+          (m.senderId === activeId) || //&& m.receiverId === this.authStore.user()?.id) ||
+          (m.senderId === this.authStore.user()?.id && m.receiverId === activeId)
+        );
+      })
       .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
   });
 
   constructor(
-    private authStore: AuthStore,
     private messagesStore: MessagesStore,
     private chatService: ChatService,
+    private authStore: AuthStore
   ) {}
 
   sendMessage() {
-    if (!this._activeUserId() || !this._inputContent()) return;
+    if (this._activeUserId() === null || !this._inputContent()) return;
 
     const messageDraft: MessageCreate = { ...this.messageDraft() };
     this._inputContent.set('');
@@ -46,7 +55,7 @@ export class ChatsFacade {
       next: (message: Message) => {
         this.messagesStore.addMessage(message);
       },
-      error: (err) => console.error(err)
+      error: (err) => console.error(err),
     });
   }
 

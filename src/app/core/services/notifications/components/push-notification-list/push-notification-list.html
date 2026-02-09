@@ -1,0 +1,19 @@
+<div class="notification-container">
+  @for (n of notifications(); track n.id) {
+    <div class="notification-item" animate.enter="notif-enter" animate.leave="notif-leave">
+      <a class="notification-link" [routerLink]="n.routerLink || undefined" (click)="remove(n.id)">
+        <app-push-notification
+          [title]="n.title"
+          [text]="n.text"
+          [appName]="n.appName || null"
+          [icon]="n.icon || null"
+        >
+        </app-push-notification>
+      </a>
+
+      <button class="close-btn" type="button" (click)="remove(n.id); $event.stopPropagation()">
+        ×
+      </button>
+    </div>
+  }
+</div>

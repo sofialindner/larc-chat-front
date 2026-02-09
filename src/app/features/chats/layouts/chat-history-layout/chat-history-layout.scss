@@ -58,8 +58,8 @@ li {
 .chat-item {
   display: flex;
   gap: 8px;
-  padding: 8px;
-  border-radius: 12px;
+  padding: 12px;
+  border-radius: 16px;
   transition: background 0.3s ease;
   cursor: pointer;
   text-decoration: none;
@@ -71,6 +71,17 @@ li {
 
 .chat-item.active {
   background: var(--text-color-10);
+}
+
+.broadcast-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--primary-color);
+  color: var(--primary-color);
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
 }
 
 .user-info {

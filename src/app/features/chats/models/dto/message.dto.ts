@@ -1,5 +1,5 @@
 export interface MessageDto {
   senderId: number;
-  receiverId: number;
+  receiverId?: number;
   content: string;
 }
