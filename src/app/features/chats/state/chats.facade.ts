@@ -27,13 +27,9 @@ export class ChatsFacade {
     return this.messagesStore
       .messages()
       .filter((m) => {
-        if (activeId === BROADCAST_ID) {
-          return m.receiverId === BROADCAST_ID;
-        }
-
         return (
-          (m.senderId === activeId) || //&& m.receiverId === this.authStore.user()?.id) ||
-          (m.senderId === this.authStore.user()?.id && m.receiverId === activeId)
+          (m.senderId === activeId) ||
+          (m.senderId === this.authStore.user()?.id && (m.receiverId === activeId || m.receiverId === BROADCAST_ID))
         );
       })
       .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
